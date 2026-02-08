@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluxGrid - Decentralized Resource Sharing</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>FluxGrid</h1>
+            <p class="subtitle">Join the Decentralized Compute Network</p>
+        </header>
+
+        <main>
+            <section class="contribution-card">
+                <h2>Resource Availability Survey</h2>
+                <p class="description">Help us design the FluxGrid network by sharing what resources you <i>might</i>
+                    contribute. This is just a survey—no software will be installed yet.</p>
+
+                <form id="resourceForm">
+
+                    <!-- Step 1: Device & OS -->
+                    <div class="wizard-step" data-step="1">
+                        <div class="form-section">
+                            <h3>1. Device Profile</h3>
+
+                            <!-- Device Type -->
+                            <div class="input-wrapper">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+                                    <label class="section-label" style="margin-bottom: 0;">Device Type</label>
+                                    <div class="info-icon" tabindex="0">
+                                        i
+                                        <div class="tooltip-text">
+                                            Select the form factor of the device you are currently using or plan to
+                                            share.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="radio-group">
+                                    <label class="radio-card">
+                                        <input type="radio" name="deviceType" value="desktop" checked>
+                                        <span class="card-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                                            </svg>
+                                            Desktop
+                                        </span>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="deviceType" value="laptop">
+                                        <span class="card-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                                <line x1="2" y1="20" x2="22" y2="20"></line>
+                                            </svg>
+                                            Laptop
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- OS Selection -->
+                            <div class="input-wrapper" style="margin-top: 1.5rem;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+                                    <label class="section-label" style="margin-bottom: 0;">Operating System</label>
+                                    <div class="info-icon" tabindex="0">
+                                        i
+                                        <div class="tooltip-text">
+                                            The operating system determines which software clients are compatible.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="radio-group">
+                                    <label class="radio-card">
+                                        <input type="radio" name="osType" value="linux" checked>
+                                        <span class="card-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path
+                                                    d="M12 2a5 5 0 0 0-5 5v2a6 6 0 0 0-6 6v4a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1v-4a6 6 0 0 0-6-6V7a5 5 0 0 0-5-5z">
+                                                </path>
+                                            </svg>
+                                            Linux
+                                        </span>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="osType" value="mac">
+                                        <span class="card-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path
+                                                    d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z">
+                                                </path>
+                                                <path d="M10 2c1 .5 2 2 2 5"></path>
+                                            </svg>
+                                            macOS
+                                        </span>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="osType" value="windows">
+                                        <span class="card-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20 20l-8.5-8.5L20 3V20z"></path>
+                                                <path d="M4 20l8.5-8.5L4 3V20z"></path>
+                                                <!-- Simple Windows-ish logo rep -->
+                                                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                                <line x1="12" y1="3" x2="12" y2="21"></line>
+                                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                            </svg>
+                                            Windows
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Power Status (Always Visible) -->
+                            <div class="input-wrapper" id="powerWrapper" style="margin-top: 1.5rem;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+                                    <label class="section-label" style="margin-bottom: 0;">Power Availability</label>
+                                    <div class="info-icon" tabindex="0">
+                                        i
+                                        <div class="tooltip-text">
+                                            Contributing processing power drains battery. We recommend being plugged in.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slider-wrapper">
+                                    <label
+                                        style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">
+                                        Time Plugged In: <span id="pluggedInVal"
+                                            style="color: var(--primary-color);">100</span>%
+                                    </label>
+                                    <input type="range" name="pluggedInPercent" id="pluggedInPercent" min="0" max="100"
+                                        value="100" class="slider">
+                                    <div class="slider-labels">
+                                        <span>Rarely</span>
+                                        <span>Often</span>
+                                        <span>Always</span>
+                                    </div>
+                                </div>
+                                <div class="form-group hidden" id="batteryWrapper" style="margin-top: 1rem;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" name="runOnBattery" id="batteryCb">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text">Allow running on battery?</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-buttons right">
+                            <button type="button" class="nav-btn next-btn" onclick="nextStep(1)">Next &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Network & API Keys -->
+                    <div class="wizard-step hidden" data-step="2">
+                        <div class="form-section">
+                            <h3>2. Network & Connectivity</h3>
+
+                            <!-- Speed Test Section -->
+                            <div class="resource-block" style="padding: 1.5rem;">
+                                <div
+                                    style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <label class="section-label" style="margin: 0;">Network Speed</label>
+                                        <div class="info-icon" tabindex="0">
+                                            i
+                                            <div class="tooltip-text">
+                                                We need to measure your upload/download speed to optmize traffic
+                                                routing. Use the button to test, or edit manually.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="speed-test-container">
+                                    <div class="speed-cards">
+                                        <div class="speed-card">
+                                            <span class="speed-label">Download</span>
+                                            <span class="speed-value" id="dlSpeedDisplay">--</span>
+                                            <span class="speed-unit">Mbps</span>
+                                        </div>
+                                        <div class="speed-card">
+                                            <span class="speed-label">Upload</span>
+                                            <span class="speed-value" id="ulSpeedDisplay">--</span>
+                                            <span class="speed-unit">Mbps</span>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" id="startSpeedTestBtn" class="action-btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                        </svg>
+                                        Run Speed Test (5s)
+                                    </button>
+                                    <div id="speedProgress" class="progress-bar hidden">
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+
+                                <div class="specs-grid" style="margin-top: 1.5rem;">
+                                    <div class="input-wrapper">
+                                        <label>Download Speed (measure/edit)</label>
+                                        <input type="number" name="networkSpeedDown" id="networkSpeedDown"
+                                            placeholder="Run test or enter...">
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label>Upload Speed (measure/edit)</label>
+                                        <input type="number" name="networkSpeedUp" id="networkSpeedUp"
+                                            placeholder="Run test or enter...">
+                                    </div>
+                                </div>
+                                <div class="input-wrapper slider-wrapper" style="margin-top: 1.5rem;">
+                                    <label style="margin-bottom: 0.5rem; display:block;">Monthly Data Cap: <span
+                                            id="dataCapVal"
+                                            style="color: var(--primary-color);">Unlimited</span></label>
+                                    <!-- Continuous slider: 0 to 5000 GB (5TB), last step is unlimited -->
+                                    <input type="range" name="dataCap" id="dataCapSlider" min="0" max="5100" step="10"
+                                        value="5100" class="slider">
+                                    <div class="slider-labels">
+                                        <span>0 GB</span>
+                                        <span>5 TB</span>
+                                        <span>Unlimited</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                    style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" name="proxyConsent" id="proxyConsent">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text" style="color: #ffaa00; font-size: 0.9rem;">
+                                            Use as Proxy Node? (Earn extra tokens for traffic relay)
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- API Keys Section -->
+                            <div class="resource-block" style="margin-top: 1.5rem; padding: 1.5rem;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 1rem;">
+                                    <h4 style="margin: 0; font-size: 1.1rem;">API Key Sharing</h4>
+                                    <div class="info-icon" tabindex="0">
+                                        i
+                                        <div class="tooltip-text">
+                                            Share your Gemini API key to allow the network to perform AI tasks on your
+                                            behalf.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-wrapper">
+                                    <label>Gemini API Key</label>
+                                    <input type="password" name="apiKeyGemini" placeholder="AIza..." class="code-input">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="nav-buttons">
+                            <button type="button" class="nav-btn prev-btn" onclick="prevStep(2)">&larr; Back</button>
+                            <button type="button" class="nav-btn next-btn" onclick="nextStep(2)">Next &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Resources & Submit -->
+                    <div class="wizard-step hidden" data-step="3">
+                        <div class="form-section">
+                            <h3>3. Detailed Resources</h3>
+                            <p class="section-hint">Select the hardware resources you want to contribute.</p>
+
+                            <!-- CPU -->
+                            <div class="resource-block">
+                                <label class="resource-toggle">
+                                    <input type="checkbox" name="resources" value="cpu" id="cpuCb">
+                                    <span class="toggle-card">
+                                        <span class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                                                <rect x="9" y="9" width="6" height="6"></rect>
+                                            </svg>
+                                        </span>
+                                        <span class="label">CPU</span>
+                                        <div class="info-icon" tabindex="0"
+                                            style="margin-left:auto; margin-right: 10px;">i
+                                            <div class="tooltip-text">Share processor cores for distributed tasks.</div>
+                                        </div>
+                                    </span>
+                                </label>
+                                <div class="resource-details hidden" id="cpuDetails">
+                                    <div class="specs-grid">
+                                        <div class="input-wrapper">
+                                            <label>Total Cores</label>
+                                            <input type="number" name="cpuCores" id="cpuCores" placeholder="Auto"
+                                                min="1">
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <label>Cores to Share</label>
+                                            <input type="number" name="cpuAllocated" id="cpuAllocated"
+                                                placeholder="e.g. 4" min="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- GPU -->
+                            <div class="resource-block">
+                                <label class="resource-toggle">
+                                    <input type="checkbox" name="resources" value="gpu" id="gpuCb">
+                                    <span class="toggle-card">
+                                        <span class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                                            </svg>
+                                        </span>
+                                        <span class="label">GPU</span>
+                                        <div class="info-icon" tabindex="0"
+                                            style="margin-left:auto; margin-right: 10px;">i
+                                            <div class="tooltip-text">Share your Graphics Processing Unit for AI
+                                                rendering.</div>
+                                        </div>
+                                    </span>
+                                </label>
+                                <div class="resource-details hidden" id="gpuDetails">
+                                    <div class="input-wrapper">
+                                        <label>GPU Model</label>
+                                        <input type="text" name="gpuModel" id="gpuModel" placeholder="e.g. RTX 4090">
+                                    </div>
+                                    <div class="input-wrapper slider-wrapper">
+                                        <label>Utilization Limit: <span id="gpuPercentVal">50</span>%</label>
+                                        <input type="range" name="gpuPercent" id="gpuPercent" min="10" max="100"
+                                            value="50" class="slider">
+                                        <div class="slider-labels">
+                                            <span>Light</span>
+                                            <span>Medium</span>
+                                            <span>Max</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Storage -->
+                            <div class="resource-block">
+                                <label class="resource-toggle">
+                                    <input type="checkbox" name="resources" value="storage" id="storageCb">
+                                    <span class="toggle-card">
+                                        <span class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path
+                                                    d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span class="label">Storage</span>
+                                        <div class="info-icon" tabindex="0"
+                                            style="margin-left:auto; margin-right: 10px;">i
+                                            <div class="tooltip-text">Allocate disk space for redundant file storage.
+                                            </div>
+                                        </div>
+                                    </span>
+                                </label>
+                                <div class="resource-details hidden" id="storageDetails">
+                                    <div class="specs-grid">
+                                        <div class="input-wrapper">
+                                            <label>Total (GB)</label>
+                                            <input type="number" name="storageTotal" id="storageSpace"
+                                                placeholder="e.g. 1000">
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <label>Share (GB)</label>
+                                            <input type="number" name="storageAllocated" id="storageAllocated"
+                                                placeholder="e.g. 200">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Removed Incentives Section as per request -->
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button type="button" class="nav-btn prev-btn" onclick="prevStep(3)">&larr; Back</button>
+                            <button type="submit" class="submit-btn"
+                                style="margin-top:0; width:auto; min-width: 200px;">Submit Availability</button>
+                        </div>
+                    </div>
+
+                </form>
+                <div id="statusMessage"></div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
