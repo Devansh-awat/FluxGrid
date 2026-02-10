@@ -7,6 +7,17 @@
     <title>FluxGrid - Decentralized Resource Sharing</title>
     <link rel="stylesheet" href="/survey/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Check rate limit on load
+        fetch('/api/submit')
+            .then(response => {
+                if (response.status === 429) {
+                    // Redirect to a non-existent page to trigger platform 404
+                    window.location.href = '/404';
+                }
+            })
+            .catch(err => console.error('Rate limit check failed', err));
+    </script>
 </head>
 
 <body>

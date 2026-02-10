@@ -12,11 +12,11 @@ class handler(BaseHTTPRequestHandler):
             # 1. Get IP address
             ip = self.headers.get('x-forwarded-for', self.client_address[0])
             
-            # 2. Rate Limiting Logic (2 submissions per IP)
+            # 2. Rate Limiting Logic (3 submissions per IP)
             if ip in rate_limit_store:
                 entry = rate_limit_store[ip]
-                if entry['count'] >= 2:
-                     self._send_response(429, {"error": "Rate limit exceeded. Max 2 submissions per IP."})
+                if entry['count'] >= 3:
+                     self._send_response(429, {"error": "Rate limit exceeded. Max 3 submissions per IP."})
                      return
                 entry['count'] += 1
             else:
@@ -43,6 +43,23 @@ class handler(BaseHTTPRequestHandler):
                 "data": data
             })
 
+        except Exception as e:
+            self._send_response(500, {"error": str(e)})
+
+    def do_GET(self):
+        try:
+            # 1. Get IP address
+            ip = self.headers.get('x-forwarded-for', self.client_address[0])
+            
+            # 2. Check Rate Limit
+            if ip in rate_limit_store:
+                entry = rate_limit_store[ip]
+                if entry['count'] >= 3:
+                     self._send_response(429, {"error": "Rate limit exceeded."})
+                     return
+            
+            # 3. OK
+            self._send_response(200, {"message": "OK", "count": rate_limit_store.get(ip, {}).get('count', 0)})
         except Exception as e:
             self._send_response(500, {"error": str(e)})
 
