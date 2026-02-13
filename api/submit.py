@@ -27,6 +27,7 @@ def init_db():
                 data_cap INT,
                 proxy_consent BOOLEAN,
                 resources TEXT[],
+                cpu_model TEXT,
                 cpu_cores INT,
                 cpu_allocated INT,
                 gpu_model TEXT,
@@ -36,6 +37,18 @@ def init_db():
                 email TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
+        ''')
+        # Add cpu_model column if table already exists without it
+        cur.execute('''
+            DO $$
+            BEGIN
+                IF NOT EXISTS (
+                    SELECT 1 FROM information_schema.columns
+                    WHERE table_name = 'survey_responses' AND column_name = 'cpu_model'
+                ) THEN
+                    ALTER TABLE survey_responses ADD COLUMN cpu_model TEXT;
+                END IF;
+            END $$;
         ''')
         conn.commit()
         cur.close()
@@ -85,10 +98,10 @@ class handler(BaseHTTPRequestHandler):
                     INSERT INTO survey_responses (
                         ip_address, device_type, os_type, plugged_in_percent, run_on_battery,
                         download_speed, upload_speed, data_cap, proxy_consent,
-                        resources, cpu_cores, cpu_allocated, gpu_model, gpu_percent,
+                        resources, cpu_model, cpu_cores, cpu_allocated, gpu_model, gpu_percent,
                         storage_total, storage_allocated, email
                     ) VALUES (
-                        %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                        %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
                     )
                 ''', (
                     ip,
@@ -101,6 +114,7 @@ class handler(BaseHTTPRequestHandler):
                     int(data.get('dataCap', 0)),
                     data.get('proxyConsent', 'off') == 'on',
                     data.get('resources', []),
+                    data.get('cpuModel', ''),
                     int(data.get('cpuCores') or 0),
                     int(data.get('cpuAllocated') or 0),
                     data.get('gpuModel', ''),

@@ -111,6 +111,68 @@ function detectSpecs() {
         const cpuInput = document.getElementById('cpuCores');
         if (cpuInput) cpuInput.value = navigator.hardwareConcurrency;
     }
+
+    // CPU Model auto-detection
+    detectCpuModel();
+}
+
+async function detectCpuModel() {
+    const cpuModelInput = document.getElementById('cpuModel');
+    if (!cpuModelInput) return;
+
+    let model = '';
+
+    // Method 1: High Entropy User-Agent hints (Chrome/Edge 90+)
+    try {
+        if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+            const hints = await navigator.userAgentData.getHighEntropyValues([
+                'architecture', 'bitness', 'model', 'platform', 'platformVersion'
+            ]);
+            const arch = hints.architecture || '';
+            const bitness = hints.bitness || '';
+            const platform = hints.platform || '';
+
+            // On mobile devices, 'model' gives the device model
+            if (hints.model) {
+                model = `${hints.model} (${arch} ${bitness}-bit)`;
+            } else if (arch) {
+                model = `${platform} ${arch} ${bitness}-bit`;
+            }
+        }
+    } catch (e) {
+        // High entropy hints not available or denied
+    }
+
+    // Method 2: WebGL renderer string (often contains GPU but sometimes CPU info)
+    if (!model) {
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (gl) {
+                const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                if (debugInfo) {
+                    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                    // Some renderers include CPU info (e.g., "ANGLE (Intel... Core i7...)")
+                    const cpuMatch = renderer.match(/\(([^)]*(?:Intel|AMD|Apple|Qualcomm|Snapdragon)[^)]*)\)/i);
+                    if (cpuMatch) {
+                        model = cpuMatch[1].trim();
+                    }
+                }
+            }
+        } catch (e) {
+            // WebGL not available
+        }
+    }
+
+    // Method 3: Fallback to navigator.platform + core count
+    if (!model) {
+        const platform = navigator.platform || 'Unknown';
+        const cores = navigator.hardwareConcurrency || '?';
+        model = `${platform} (${cores} threads)`;
+    }
+
+    cpuModelInput.value = model;
+    cpuModelInput.placeholder = 'e.g. Intel Core i7-12700K';
 }
 
 // Speed Test Logic
